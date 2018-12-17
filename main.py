@@ -3,7 +3,7 @@
 import tkinter as tk
 import os
 
-Width = Height = 50
+Width = Height = 60
 pieces = [['br', 'bn', 'bb', 'bq', 'bk', 'bb', 'bn', 'br'],
           ['bp', 'bp', 'bp', 'bp', 'bp', 'bp', 'bp', 'bp'],
           ['oo', 'oo', 'oo', 'oo', 'oo', 'oo', 'oo', 'oo'],
@@ -37,19 +37,20 @@ def drawSquares():
 
 
 def importPieces():
-    for i in range(len(pieces)):
-        for t in range(len(pieces[i])):
-            if not pieces[i][t] == 'oo':
-                    pieces[i][t] = tk.PhotoImage(file=(os.getcwd() +
-                                                 "/chessIcons/" +
-                                                 pieces[i][t] + ".png"))
-                    pieces[i][t] = pieces[i][t].zoom(int(Width/8))
-                    pieces[i][t] = pieces[i][t].subsample(108)
-                    board.create_image(t*(Width/8), i*(Height/8),
-                                       image=pieces[i][t], anchor=tk.NW,
-                                       tags=pieces[i][t])
+    for column in range(8):
+        for row in range(8):
+            if not pieces[column][row] == 'oo':
+                # ((tk.PhotoImage(file=(os.getcwd() + "/chessIcons/" +
+                # pieces[column][row] + ".png"))).zoom(int(Width/8)))
+                # .subsample(108)
+                # pieces[column][row] = pieces[column][row].zoom(int(Width/8))
+                # pieces[column][row] = pieces[column][row].subsample(108)
+                board.create_image(row*(Width/8), column*(Height/8),
+                                   image=((tk.PhotoImage(file=(os.getcwd() + "/chessIcons/" + pieces[column][row] + ".png"))).zoom(int(Width/8))).subsample(108), anchor=tk.NW,
+                                   tags=((tk.PhotoImage(file=(os.getcwd() + "/chessIcons/" + pieces[column][row] + ".png"))).zoom(int(Width/8))).subsample(108))
 
 
 drawSquares()
 importPieces()
+print(pieces)
 root.mainloop()
